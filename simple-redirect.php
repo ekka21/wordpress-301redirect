@@ -73,12 +73,12 @@ class Simple_301Redirect {
 		$old_url     = "http://".$server_name.$request_uri;
 		
 		$q = "SELECT new_url FROM ".$wpdb->prefix."simple_301redirect WHERE old_url = '".$old_url."' GROUP BY new_url";
-		$row = $wpdb->get_var($q);
-		print"<pre>";print_r($row);print"</pre>";
+		$new_url = $wpdb->get_var($q);
+		
 		exit;
-		if ( sizeof($row) > 0 )
+		if ( $new_url )
 		{
-			wp_redirect($row->new_url);
+			wp_safe_redirect($new_url, 301);
 			exit();
 		}
 		}
