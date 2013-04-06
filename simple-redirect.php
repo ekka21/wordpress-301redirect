@@ -19,7 +19,9 @@ if ( !function_exists( 'add_action' ) )
 	exit;
 }
 
-class Simple_301Redirect{
+new Simple_301Redirect;
+
+class Simple_301Redirect {
 
 	/**
 	 * Sets up simple 301Redirect
@@ -29,6 +31,7 @@ class Simple_301Redirect{
 	 * @return object
 	 */
 	public function __construct() {
+		
 		register_activation_hook( __FILE__, array( $this, 'install' ) );
 		add_action( 'init', array($this, 'action_init') );
 	}
@@ -39,8 +42,8 @@ class Simple_301Redirect{
 	 * @since 1.0
 	 * @return object
 	 */
-	static function install() {
-     	global $wpdb;
+	public function install() {
+		global $wpdb;
 		$table_name = $wpdb->prefix . 'simple_301redirect';
 		
 		if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name)
@@ -61,12 +64,23 @@ class Simple_301Redirect{
 	 * This is where everything kick off!
 	 *
 	 * @since 1.0.0
-	 * @uses 
-	 * @return 
+	 * @return null
 	 */
 	public function action_init() {
-
-
-	}
+		global $wpdb;
+		$server_name = strtolower($_SERVER['SERVER_NAME']);
+		$request_uri = strtolower($_SERVER['REQUEST_URI']);
+		$old_url     = "http://".$server_name.$request_uri;
+		
+		$q = "SELECT new_url FROM ".$wpdb->prefix."simple_301redirect WHERE old_url = '".$old_url."' GROUP BY new_url";
+		$row = $wpdb->get_var($q);
+		print"<pre>";print_r($row);print"</pre>";
+		exit;
+		if ( sizeof($row) > 0 )
+		{
+			wp_redirect($row->new_url);
+			exit();
+		}
+		}
 	
 }
