@@ -12,6 +12,7 @@ Author URI: http://ekkachai.net
 License: GPLv2 or later
 */
 
+
 // Make sure we don't expose any info if called directly
 if ( !function_exists( 'add_action' ) ) 
 {
@@ -42,7 +43,7 @@ class Simple_301Redirect {
 	 * @since 1.0
 	 * @return object
 	 */
-	public function install() {
+	static function install() {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'simple_301redirect';
 		
@@ -73,10 +74,10 @@ class Simple_301Redirect {
 		$old_url     = "http://".$server_name.$request_uri;
 		
 		$q = "SELECT new_url FROM ".$wpdb->prefix."simple_301redirect WHERE old_url = '".$old_url."' GROUP BY new_url";
-		$new_url = $wpdb->get_var($q);
 		
-		exit;
-		if ( $new_url )
+		$new_url = $wpdb->get_var($q);
+
+		if ( isset($new_url) )
 		{
 			wp_safe_redirect($new_url, 301);
 			exit();
