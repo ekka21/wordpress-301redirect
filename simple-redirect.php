@@ -73,9 +73,9 @@ class Simple_301Redirect {
 		$request_uri = strtolower($_SERVER['REQUEST_URI']);
 		$old_url     = "http://".$server_name.$request_uri;
 		
-		$q = "SELECT new_url FROM ".$wpdb->prefix."simple_301redirect WHERE old_url = '".$old_url."' GROUP BY new_url";
+		$q = "SELECT new_url FROM ".$wpdb->prefix."simple_301redirect WHERE old_url = %s GROUP BY new_url";
 		
-		$new_url = $wpdb->get_var($q);
+		$new_url = $wpdb->get_var($wpdb->prepare($q,$old_url));
 
 		if ( isset($new_url) )
 		{
