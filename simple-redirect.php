@@ -4,7 +4,7 @@
  */
 /*
 Plugin Name: Simple 301Redirect
-Plugin URI: http://ekkachai.net/Simple301Redirect
+Plugin URI: http://ekkachai.net/
 Description: Simple 301Redirect is a 301 HTTP redirect plugin that allows user to redirect their old urls to new urls permanently. There is import/export to CSV.
 Version: 1.0
 Author: Ekkachai Danwanichakul
