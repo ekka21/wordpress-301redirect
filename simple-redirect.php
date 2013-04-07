@@ -1,7 +1,4 @@
 <?php
-/**
- * @package Simple 301Redirect
- */
 /*
 Plugin Name: Simple 301Redirect
 Plugin URI: http://ekkachai.net/
